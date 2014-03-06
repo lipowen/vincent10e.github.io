@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://vincent10e.github.io
-title: My Octopress Blog
+title: 外部記憶體
 subtitle: A blogging framework for hackers.
 author: Your Name
 simple_search: http://google.com/search
@@ -90,11 +90,15 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: rofiwbwy
+disqus_show_comment_count: true
 
 # Google Analytics
 google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: false
+
+flickr:
+  api_key: cc01aebf8416be84607a27ac4b7557fc
+  shared_secret: c8e5ef63742aa8a8
