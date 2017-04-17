@@ -225,7 +225,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -235,7 +235,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            About
+            About me
           </a>
         </li>
       
@@ -258,6 +258,150 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/tmux-in-your-day/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vincent Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/17/tmux-in-your-day/" itemprop="url">
+                  tmux 配合 tmuxifier
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-17T22:38:12+08:00">
+                2017-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>工作時一整天都會碰到 terminal ，在還沒有使用 tmux 之前，總是會在不同的 tab 中做切換，自從現在使用 tmux 之後，感覺到效率有稍稍的提升一點。</p>
+<p>tmux 可以非常簡單地透過 Homebrew 來安裝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install tmux</div></pre></td></tr></table></figure>
+<p>安裝好後，要開啟 tmux session，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tmux</div></pre></td></tr></table></figure>
+<p>目前自己的 tmux <a href="https://gist.github.com/vincent10e/1802b342048467dc5c6b8d44926b07a8" target="_blank" rel="external">設定</a> 是 follow thoughtbot 的 screen 課程，其中覺得最值得調整的是以下幾個設定。</p>
+<ul>
+<li>如果在一個 window 中切了多了 pane，這個設定可以方便地在不同的 pane 之中切換</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># act like vim</div><div class="line">bind-key -n C-h select-pane -L</div><div class="line">bind-key -n C-j select-pane -D</div><div class="line">bind-key -n C-k select-pane -U</div><div class="line">bind-key -n C-l select-pane -R</div></pre></td></tr></table></figure>
+<ul>
+<li>垂直以及水平切個出新的 pane</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># split window</div><div class="line">bind-key - split-window -v  -c &apos;#&#123;pane_current_path&#125;&apos;</div><div class="line">bind-key \ split-window -h  -c &apos;#&#123;pane_current_path&#125;&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>調整 pane 之間的大小，配合 shift 或 control 就能做到小幅度或者是大幅度的調整。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># Fine adjustment (1 or 2 cursor cells per bump)</div><div class="line">bind -n S-Left resize-pane -L 2</div><div class="line">bind -n S-Right resize-pane -R 2</div><div class="line">bind -n S-Down resize-pane -D 1</div><div class="line">bind -n S-Up resize-pane -U 1</div><div class="line"></div><div class="line"># Coarse adjustment (5 or 10 cursor cells per bump)</div><div class="line">bind -n C-Left resize-pane -L 10</div><div class="line">bind -n C-Right resize-pane -R 10</div><div class="line">bind -n C-Down resize-pane -D 5</div><div class="line">bind -n C-Up resize-pane -U 5</div></pre></td></tr></table></figure>
+<h2 id="再進階一點點"><a href="#再進階一點點" class="headerlink" title="再進階一點點"></a>再進階一點點</h2><p>上面的設定都是能夠讓我們方便的將 pane 調成自己想要的設定，但如果今天 session 重開就要重新再切個 pane，然後再調整 pane 大小為自己想要的樣子，實在是不符合懶惰的原則，為了能夠達成恢復  tmux session，可以配合 <a href="https://github.com/tmuxinator/tmuxinator" target="_blank" rel="external">tmuxinator</a> 一起使用。</p>
+<p>安裝完之後，使用 tmuxinator 建立新的 project。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tmuxinator new rails_demo_project</div></pre></td></tr></table></figure>
+<p><code>~/.tmuxinator/sample.yml</code>，這邊做一個簡單的範例檔，當使用 tmuxinator 時會開啟一個 tmux window，在這個 window 中有兩個 panes，一個 pane 會執行 <code>rails server</code>，而另外一個則是執行 <code>rails console</code>，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># ~/.tmuxinator/rails_demo_project.yml</div><div class="line"></div><div class="line">name: rails_demo_project</div><div class="line">root: ~/rails_demo_project</div><div class="line"></div><div class="line">windows:</div><div class="line">  - develop:</div><div class="line">      layout: main-vertical</div><div class="line">      panes:</div><div class="line">          - server:</div><div class="line">              - bundle exec rails server</div><div class="line">          - console:</div><div class="line">              - bundle exec rails console</div></pre></td></tr></table></figure>
+<p>之後開發時，只要使用 tmuxinator，就能快速的開啟預先定義好的 session 畫面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tmuxinator start rails_demo_project</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -305,7 +449,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-15T17:22:06+08:00">
                 2017-04-15
@@ -433,7 +577,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-13T21:01:12+08:00">
                 2017-04-13
@@ -568,8 +712,8 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -634,7 +778,7 @@
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">

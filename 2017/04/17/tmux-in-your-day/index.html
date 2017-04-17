@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="資訊爆炸有意識的管理自己的資訊來源，你不做篩選，就只能被動接受別人餵食給你的資訊。最近公司的設計師分享了我們人一天會看到多少 LOGO，據他表明是 4000 ~ 10000，很可怕的數量，不過這些 Logo 大概也都不會暫留在我們心思太久，甚至沒有意識到自己有撇過這一眼。這就讓我不禁想問自己一天到底看了多少的資訊，好吧，我實在沒有動力去做記錄，但是我可以用檢視自己接觸資訊的方式，來替自己針對一整天">
+<meta name="description" content="工作時一整天都會碰到 terminal ，在還沒有使用 tmux 之前，總是會在不同的 tab 中做切換，自從現在使用 tmux 之後，感覺到效率有稍稍的提升一點。 tmux 可以非常簡單地透過 Homebrew 來安裝 1$ brew install tmux 安裝好後，要開啟 tmux session， 1$ tmux 目前自己的 tmux 設定 是 follow thoughtbot 的 s">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="你一天看了多少東西？">
-<meta property="og:url" content="http://yoursite.com/2017/04/15/information/index.html">
+<meta property="og:title" content="tmux 配合 tmuxifier">
+<meta property="og:url" content="http://yoursite.com/2017/04/17/tmux-in-your-day/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="資訊爆炸有意識的管理自己的資訊來源，你不做篩選，就只能被動接受別人餵食給你的資訊。最近公司的設計師分享了我們人一天會看到多少 LOGO，據他表明是 4000 ~ 10000，很可怕的數量，不過這些 Logo 大概也都不會暫留在我們心思太久，甚至沒有意識到自己有撇過這一眼。這就讓我不禁想問自己一天到底看了多少的資訊，好吧，我實在沒有動力去做記錄，但是我可以用檢視自己接觸資訊的方式，來替自己針對一整天">
-<meta property="og:updated_time" content="2017-04-15T09:50:19.000Z">
+<meta property="og:description" content="工作時一整天都會碰到 terminal ，在還沒有使用 tmux 之前，總是會在不同的 tab 中做切換，自從現在使用 tmux 之後，感覺到效率有稍稍的提升一點。 tmux 可以非常簡單地透過 Homebrew 來安裝 1$ brew install tmux 安裝好後，要開啟 tmux session， 1$ tmux 目前自己的 tmux 設定 是 follow thoughtbot 的 s">
+<meta property="og:updated_time" content="2017-04-17T14:43:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你一天看了多少東西？">
-<meta name="twitter:description" content="資訊爆炸有意識的管理自己的資訊來源，你不做篩選，就只能被動接受別人餵食給你的資訊。最近公司的設計師分享了我們人一天會看到多少 LOGO，據他表明是 4000 ~ 10000，很可怕的數量，不過這些 Logo 大概也都不會暫留在我們心思太久，甚至沒有意識到自己有撇過這一眼。這就讓我不禁想問自己一天到底看了多少的資訊，好吧，我實在沒有動力去做記錄，但是我可以用檢視自己接觸資訊的方式，來替自己針對一整天">
+<meta name="twitter:title" content="tmux 配合 tmuxifier">
+<meta name="twitter:description" content="工作時一整天都會碰到 terminal ，在還沒有使用 tmux 之前，總是會在不同的 tab 中做切換，自從現在使用 tmux 之後，感覺到效率有稍稍的提升一點。 tmux 可以非常簡單地透過 Homebrew 來安裝 1$ brew install tmux 安裝好後，要開啟 tmux session， 1$ tmux 目前自己的 tmux 設定 是 follow thoughtbot 的 s">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/15/information/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/17/tmux-in-your-day/"/>
 
 
 
 
 
-  <title> 你一天看了多少東西？ | Hexo </title>
+  <title> tmux 配合 tmuxifier | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -271,7 +271,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/15/information/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/tmux-in-your-day/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Vincent Lee">
@@ -292,7 +292,7 @@
             
             
               
-                你一天看了多少東西？
+                tmux 配合 tmuxifier
               
             
           </h1>
@@ -307,8 +307,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-15T17:22:06+08:00">
-                2017-04-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-17T22:38:12+08:00">
+                2017-04-17
               </time>
             
 
@@ -343,15 +343,31 @@
       
 
       
-        <h2 id="資訊爆炸"><a href="#資訊爆炸" class="headerlink" title="資訊爆炸"></a>資訊爆炸</h2><p>有意識的管理自己的資訊來源，你不做篩選，就只能被動接受別人餵食給你的資訊。最近公司的設計師分享了我們人一天會看到多少 LOGO，據他表明是 4000 ~ 10000，很可怕的數量，不過這些 Logo 大概也都不會暫留在我們心思太久，甚至沒有意識到自己有撇過這一眼。這就讓我不禁想問自己一天到底看了多少的資訊，好吧，我實在沒有動力去做記錄，但是我可以用檢視自己接觸資訊的方式，來替自己針對一整天到底接觸了多少資訊這個問題抓個大概。</p>
-<p>今天認真的分類一下自己的資訊來源，大致上就分做這幾類，RSS、Facebook、Twitter、電子報、朋友圈以及實體書本。</p>
-<h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>記得Google Reader  在 2013-07-01 關閉時也引起我不小的慌張，不過也順利找到替代品 <a href="https://feedly.com" target="_blank" rel="external">feedly</a> ，然後就一直用到了現在，目前 feedly 上訂閱的 RSS 大部分都是跟開發有關或者是一些新聞以及不錯的部落格。通常每天早上會先挑幾個 feedly 上的分類大致的看過，覺得自己可能會想要深入研究的文章就會先存到 <a href="https://www.instapaper.com/" target="_blank" rel="external">Instapaper</a> 中，覺得好像可看就會對那篇文章按 read later，會這樣區分是有目的的。另外平常看到不錯的網站也都是先丟到 Instapaper 中，然後在 Instapaper 每晚會將未閱讀的文章推送到我的 kinddle 中，每天睡前就會看一下 kindle 中的文章。</p>
-<p>在 Kindle 上看這些比較碎片的文章，有幾個好處，第一是平常開發的時候已經盯了夠久的螢幕，有時下班後想要吸收點資訊，開電腦看又會加重眼睛的負擔，更別提還有可能分心去做其他事情的可能性。第二是在 kindle 中可以針對文章標記 highlight，，這些有被上 highlight 的內容，隔一段時間我會使用 <a href="https://itunes.apple.com/cn/app/klib-%E6%A0%87%E6%B3%A8%E7%AC%94%E8%AE%B0%E7%AE%A1%E7%90%86-for-kindle/id1196268448?mt=12" target="_blank" rel="external">Klib </a> 拉出來放到  <a href="http://www.bear-writer.com/" target="_blank" rel="external">Bear Note</a> 中，或者手寫在自己的筆記本中。</p>
-<p>最後這些碎片化的資訊經過前面幾道手續，來到了最後一步，整理跟分類，之前是用 Evernote 來當作數位的筆記，現在是搬移到上面提到的  Bear Note 中，記下來的東西，除非你是天才能夠將這些資訊過目不忘，若是到達此境界，其實也不用搞得如此麻煩了，（在福爾摩斯的影集中，有一個人擁有過目不忘的能力，甚至稱自己的記憶空間為阿普羅之類的），但問題在於我們都不是，所以要如何分類，讓自己日後能夠再回頭看這些可能是某篇文章去蕪存菁後的精華，後續能夠再翻找，才是做這些事情的價值。</p>
-<h2 id="實體書籍"><a href="#實體書籍" class="headerlink" title="實體書籍"></a>實體書籍</h2><p>通常一個月都會給自己不少的預算買書，有些書會細讀，有些書則是草率地看過去，不過對我來說認真讀一本書，並且了謄寫部分內容到筆記本，或者是隨意在書上寫個一小段心得，認真程度大概就僅止於此，不過不論是認真的讀或草率的讀，通常都能夠在腦中留下一點印象，有時候在生活中遭遇到某些事情卡關，自己想法停滯不前時就會想起去這時好像可以去翻翻哪本書，當然，不可能說看書就能解決問題，只不過是一種替低落的自己找尋別種出路的可能性。</p>
-<h2 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h2><p>facebook 上主要加入的社團也是跟開發相關居多，裡面總是熱心分享第一手消息的人，另外則是 twitter 已經被我當作是一個 reader 在使用了。上面看到的東西覺得不錯也是使用 <a href="https://chrome.google.com/webstore/detail/instapaper/ldjkgaaoikpmhmkelcgkgacicjfbofhh" target="_blank" rel="external">Instapaper - Chrome Extension</a> 順手將文章存到 Instapaper 中。另外最重要的是朋友圈呀，有些人根本就是人型移動的 RSS Reader，你可以問他最近有什麼好看的電影可以推薦，有什麼不錯的餐廳可以試試，他們總是可以跟你分享一堆，有這些朋友真的要珍惜啊。</p>
-<h2 id="最後"><a href="#最後" class="headerlink" title="最後"></a>最後</h2><p>另外要推薦一下這兩個網站 <a href="https://sspai.com/" target="_blank" rel="external">少數派</a>跟 <a href="http://liqi.io/" target="_blank" rel="external">利器 </a> ，雖然跟資訊資收沒有太大的關係，但裡面的文章有提到許多高生產力的人都是使用什麼樣的工具，何種工具可以幫助到他們，以及使用的心得，不過這邊要注意的是，雖然有時候看著看著就會自己好像也辦得到，自己好像也可以這麼有生產力的錯覺產生，沒錯，這是錯覺，最後還是要靠自己傻得願意去實踐跟嘗試改變，才能將工具還有資訊還有你的記憶做好整合。</p>
-
+        <p>工作時一整天都會碰到 terminal ，在還沒有使用 tmux 之前，總是會在不同的 tab 中做切換，自從現在使用 tmux 之後，感覺到效率有稍稍的提升一點。</p>
+<p>tmux 可以非常簡單地透過 Homebrew 來安裝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install tmux</div></pre></td></tr></table></figure>
+<p>安裝好後，要開啟 tmux session，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tmux</div></pre></td></tr></table></figure>
+<p>目前自己的 tmux <a href="https://gist.github.com/vincent10e/1802b342048467dc5c6b8d44926b07a8" target="_blank" rel="external">設定</a> 是 follow thoughtbot 的 screen 課程，其中覺得最值得調整的是以下幾個設定。</p>
+<ul>
+<li>如果在一個 window 中切了多了 pane，這個設定可以方便地在不同的 pane 之中切換</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># act like vim</div><div class="line">bind-key -n C-h select-pane -L</div><div class="line">bind-key -n C-j select-pane -D</div><div class="line">bind-key -n C-k select-pane -U</div><div class="line">bind-key -n C-l select-pane -R</div></pre></td></tr></table></figure>
+<ul>
+<li>垂直以及水平切個出新的 pane</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># split window</div><div class="line">bind-key - split-window -v  -c &apos;#&#123;pane_current_path&#125;&apos;</div><div class="line">bind-key \ split-window -h  -c &apos;#&#123;pane_current_path&#125;&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>調整 pane 之間的大小，配合 shift 或 control 就能做到小幅度或者是大幅度的調整。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># Fine adjustment (1 or 2 cursor cells per bump)</div><div class="line">bind -n S-Left resize-pane -L 2</div><div class="line">bind -n S-Right resize-pane -R 2</div><div class="line">bind -n S-Down resize-pane -D 1</div><div class="line">bind -n S-Up resize-pane -U 1</div><div class="line"></div><div class="line"># Coarse adjustment (5 or 10 cursor cells per bump)</div><div class="line">bind -n C-Left resize-pane -L 10</div><div class="line">bind -n C-Right resize-pane -R 10</div><div class="line">bind -n C-Down resize-pane -D 5</div><div class="line">bind -n C-Up resize-pane -U 5</div></pre></td></tr></table></figure>
+<h2 id="再進階一點點"><a href="#再進階一點點" class="headerlink" title="再進階一點點"></a>再進階一點點</h2><p>上面的設定都是能夠讓我們方便的將 pane 調成自己想要的設定，但如果今天 session 重開就要重新再切個 pane，然後再調整 pane 大小為自己想要的樣子，實在是不符合懶惰的原則，為了能夠達成恢復  tmux session，可以配合 <a href="https://github.com/tmuxinator/tmuxinator" target="_blank" rel="external">tmuxinator</a> 一起使用。</p>
+<p>安裝完之後，使用 tmuxinator 建立新的 project。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tmuxinator new rails_demo_project</div></pre></td></tr></table></figure>
+<p><code>~/.tmuxinator/sample.yml</code>，這邊做一個簡單的範例檔，當使用 tmuxinator 時會開啟一個 tmux window，在這個 window 中有兩個 panes，一個 pane 會執行 <code>rails server</code>，而另外一個則是執行 <code>rails console</code>，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># ~/.tmuxinator/rails_demo_project.yml</div><div class="line"></div><div class="line">name: rails_demo_project</div><div class="line">root: ~/rails_demo_project</div><div class="line"></div><div class="line">windows:</div><div class="line">  - develop:</div><div class="line">      layout: main-vertical</div><div class="line">      panes:</div><div class="line">          - server:</div><div class="line">              - bundle exec rails server</div><div class="line">          - console:</div><div class="line">              - bundle exec rails console</div></pre></td></tr></table></figure>
+<p>之後開發時，只要使用 tmuxinator，就能快速的開啟預先定義好的 session 畫面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tmuxinator start rails_demo_project</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -387,18 +403,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/17/tmux-in-your-day/" rel="next" title="tmux 配合 tmuxifier">
-                <i class="fa fa-chevron-left"></i> tmux 配合 tmuxifier
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/13/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/15/information/" rel="prev" title="你一天看了多少東西？">
+                你一天看了多少東西？ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -521,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#資訊爆炸"><span class="nav-number">1.</span> <span class="nav-text">資訊爆炸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSS"><span class="nav-number">2.</span> <span class="nav-text">RSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#實體書籍"><span class="nav-number">3.</span> <span class="nav-text">實體書籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other"><span class="nav-number">4.</span> <span class="nav-text">Other</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最後"><span class="nav-number">5.</span> <span class="nav-text">最後</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#再進階一點點"><span class="nav-number">1.</span> <span class="nav-text">再進階一點點</span></a></li></ol></div>
             
 
           </div>
