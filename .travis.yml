@@ -12,12 +12,13 @@ before_install:
 - git clone https://github.com/vincent10e/vincent10e.github.io .deploy
 install:
 - npm install
-script:
-- hexo generate
-after_success:
+
+before_script:
 - git config --global user.name "vincent10e"
 - git config --global user.email "vincent10e@gmail.com"
-- sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
+- sed -i'' "s~git@github.com:vincent10e/vincent10e.github.io.git~https://${GITHUB_TOKEN}:x-oauth-basic@github.com/vincent10e/vincent10e.github.io.git~" _config.yml
+script:
+- hexo generate
 - hexo deploy
 env:
   global:
