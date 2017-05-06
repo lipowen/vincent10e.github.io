@@ -1,31 +1,24 @@
 branches:
   only:
-    - raw
-
+  - raw
 language: node_js
-
 sudo: false
-
 node_js: stable
-
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 before_install:
-  - npm install -g hexo-cli
-  - git clone https://github.com/vincent10e/vincent10e.github.io .deploy
-
+- npm install -g hexo-cli
+- git clone https://github.com/vincent10e/vincent10e.github.io .deploy
 install:
-  - npm install
-
+- npm install
 script:
-  # - git submodule init
-  # - git submodule update
-  - hexo generate
-
+- hexo generate
 after_success:
-  - git config --global user.name "vincent10e"
-  - git config --global user.email "vincent10e@gmail.com"
-  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
-  - hexo deploy --silent
+- git config --global user.name "vincent10e"
+- git config --global user.email "vincent10e@gmail.com"
+- sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
+- hexo deploy --silent
+env:
+  global:
+    secure: chdzwK572maCzSnMXOGAtfayqqJCfqdDbl4DtL8u8BEl/2I8lFnHbourU84qhPrVpWjkYIgOkr4zKvVZULz0tiDUyumGeISVlZq2h6Tswc/6iaT5Yo+IB/LegCjuFROA3xALPmRD22SUoLcJMJ+wjlrLdl7YQbE33jhu1qm/2A6xgXcAEh8ixOLu1McdqOGDNzBLJ4jZhzJg9JCImK3PjHT3gNYAyQPFETaUaMTH2Dgg/YP5Hz3pWCwRmdUIOPAch49/cJmyjEBYLNjHB/umbYo0ObYmnO5tny0v+8FLy4vssnD106Klmpy3QJdZcJB4v8E1jV9++TKzMSwO6V/lsg6ThBrof/av3QFaz6j1ek4CagyAZzqeNWtE3XthnToRPyz4TfWAI7X+6VuMqF4aLD/Kdzi+feirMrcO9SRElAakiFKVt2EcPYs/Ph2d693Fu4mfejvx/ODYN+LqXxws7QF5zg9N015KMq9B6lPw3VpTuM2EZEhZFhX0KRekqzcpq+4zeKSbA4WIBGsLG4AtAdi9rPccyyK8N3tczyihMkkvwasyXxPWIN0k1ty1XQ380NgipCm8SzGDET1SGA4I8ivEwxGevsc7XZnW38rRZcMD8E8m7Gh+L5tIxj4wyfHIpra9NBNgkDMzUobHCgNmnyrfKCsxynp4FVJmFBda5Sk=
