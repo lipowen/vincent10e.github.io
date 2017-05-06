@@ -13,13 +13,19 @@ cache:
     - node_modules
 
 before_install:
-  - git config --global user.name "vincent10e"
-  - git config --global user.email "vincent10e@gmail.com"
+  - npm install -g hexo-cli
+  - git clone https://github.com/vincent10e/vincent10e.github.io .deploy
 
 install:
   - npm install
 
-after_success:
-  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
+script:
+  # - git submodule init
+  # - git submodule update
   - hexo generate
+
+after_success:
+  - git config --global user.name "vincent10e"
+  - git config --global user.email "vincent10e@gmail.com"
+  - sed -i'' "/^ *repo/s~github\.com~${GITHUB_TOKEN}@github.com~" _config.yml
   - hexo deploy --silent
