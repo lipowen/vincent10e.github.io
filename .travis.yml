@@ -9,7 +9,7 @@ cache:
   - node_modules
 before_install:
 - npm install -g hexo-cli
-- git clone https://github.com/vincent10e/vincent10e.github.io .deploy
+- git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/vincent10e/vincent10e.github.io.git .deploy_git
 install:
 - npm install
 
