@@ -1,0 +1,773 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kubernetes," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前一陣子想了解 kubernetes，所以就註冊了 Google Cloud Platform，練習了一下，雖然現在註冊就送 300 美，但在熟悉這些名詞與相關的關係之前，總是會頻繁的新增 cluster 與砍 cluster，某天在逛 awesome-kubernetes 發現了 minikube 這個能在 local 端執行 kubernetes 的工具，簡直開心。在這邊就簡單的介紹一下 mi">
+<meta name="keywords" content="kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes (ㄧ）：Run Kubernetes Locally">
+<meta property="og:url" content="http://yoursite.com/2017/05/21/miniKube/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前一陣子想了解 kubernetes，所以就註冊了 Google Cloud Platform，練習了一下，雖然現在註冊就送 300 美，但在熟悉這些名詞與相關的關係之前，總是會頻繁的新增 cluster 與砍 cluster，某天在逛 awesome-kubernetes 發現了 minikube 這個能在 local 端執行 kubernetes 的工具，簡直開心。在這邊就簡單的介紹一下 mi">
+<meta property="og:image" content="http://i.imgur.com/KeLgTBg.png">
+<meta property="og:image" content="http://imgur.com/6F6vBN6.png">
+<meta property="og:updated_time" content="2017-05-21T09:56:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes (ㄧ）：Run Kubernetes Locally">
+<meta name="twitter:description" content="前一陣子想了解 kubernetes，所以就註冊了 Google Cloud Platform，練習了一下，雖然現在註冊就送 300 美，但在熟悉這些名詞與相關的關係之前，總是會頻繁的新增 cluster 與砍 cluster，某天在逛 awesome-kubernetes 發現了 minikube 這個能在 local 端執行 kubernetes 的工具，簡直開心。在這邊就簡單的介紹一下 mi">
+<meta name="twitter:image" content="http://i.imgur.com/KeLgTBg.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/21/miniKube/"/>
+
+
+
+
+
+  <title> Kubernetes (ㄧ）：Run Kubernetes Locally | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53388499-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Accueil
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            A propos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/miniKube/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vincent Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Kubernetes (ㄧ）：Run Kubernetes Locally
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T16:48:15+08:00">
+                2017-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前一陣子想了解 kubernetes，所以就註冊了 Google Cloud Platform，練習了一下，雖然現在註冊就送 300 美，但在熟悉這些名詞與相關的關係之前，總是會頻繁的新增 cluster 與砍 cluster，某天在逛 <a href="https://github.com/ramitsurana/awesome-kubernetes" target="_blank" rel="external">awesome-kubernetes</a> 發現了 <a href="https://github.com/kubernetes/minikube" target="_blank" rel="external">minikube</a> 這個能在 local 端執行 kubernetes 的工具，簡直開心。在這邊就簡單的介紹一下 minikube 的使用方式。</p>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><ol>
+<li><p>在 macOS 上，可以很方便的透過 brew 來安裝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew cask install minikube</div></pre></td></tr></table></figure>
+</li>
+<li><p>安裝 Google Cloud SDK。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl https://sdk.cloud.google.com | bash</div><div class="line">$ gcloud init</div></pre></td></tr></table></figure>
+<ol>
+<li>透過剛安裝好的 Google Cloud SDK 來安裝 kubernetes。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ gcloud components install kubectl</div></pre></td></tr></table></figure>
+<p>以上前置作業就大概完成，可以檢查 minikube 是否能正確啟動。其實就是開個 VM 環境來當作測試的環境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ minikube start</div><div class="line">Starting local Kubernetes cluster...</div><div class="line">Kubectl is now configured to use the cluster.</div></pre></td></tr></table></figure>
+<p>minikube 實際上就是建立一台虛擬機器，預設是使用 VirtualBox。在 macOS 上另外還支援 xhyve driver 以及 VMware Fusion。</p>
+<img src="http://i.imgur.com/KeLgTBg.png" class="[class names]" title="預設是使用 VirtualBox">
+<h2 id="Project-練習"><a href="#Project-練習" class="headerlink" title="Project 練習"></a>Project 練習</h2><p>前置作業都完成後，就進入這次練習的目標，透過使用 node.js 寫個 application，並且使用 Docker build 出 images，然後透過 kubernets  來管理。</p>
+<h3 id="建立-Cluster"><a href="#建立-Cluster" class="headerlink" title="建立 Cluster"></a>建立 Cluster</h3><p><code>minikube start</code> 指令會建立一個預設名稱為 <code>minikube</code> 的 kubectl context。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ minikube start</div></pre></td></tr></table></figure>
+<p>由於我們是在 local 練習，就先將 kubectl 要操作的目標 context 切換為   <code>minikue</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ kubectl config use-context minikube</div></pre></td></tr></table></figure>
+<p>如果不做切換的話，也是可以在下指令的時候去指定對哪個 context 做操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ kubectl get pods --context=minikube</div></pre></td></tr></table></figure>
+<h3 id="建立簡單的-Node-js-Application"><a href="#建立簡單的-Node-js-Application" class="headerlink" title="建立簡單的 Node.js Application"></a>建立簡單的 Node.js Application</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var http = require(&apos;http&apos;);</div><div class="line"></div><div class="line">var handleRequest = function(request, response) &#123;</div><div class="line">  response.writeHead(200);</div><div class="line">  response.end(&apos;Hello World!&apos;);</div><div class="line">&#125;;</div><div class="line">var www = http.createServer(handleRequest);</div><div class="line">www.listen(8080);</div></pre></td></tr></table></figure>
+<h3 id="建立-Docker-Container-Image"><a href="#建立-Docker-Container-Image" class="headerlink" title="建立 Docker Container Image"></a>建立 Docker Container Image</h3><p>建立 <code>Dockerfile</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FROM node:6.9.2</div><div class="line">EXPOSE 8080</div><div class="line">COPY server.js .</div><div class="line">CMD node server.js</div></pre></td></tr></table></figure>
+<p>在這邊產生出來的 images，因為只是單純在 local 環境跑，所以不需要將 image push 到例如 google cloud container registry 中。在這邊是讓 minikube 中的 docker daemon 就直接使用 local 端的 docker daemon。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ eval $(minikube docker-env)</div></pre></td></tr></table></figure>
+<p>接著 build Docker image，並且加上 <code>hello-node:v1</code> 的 tag。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker build -t hello-node:v1 .</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker images</div><div class="line">REPOSITORY                                            TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">hello-node                                            v1                  26c151489537        1 minutes ago       655MB</div></pre></td></tr></table></figure>
+<h3 id="建立-Deployment"><a href="#建立-Deployment" class="headerlink" title="建立 Deployment"></a>建立 Deployment</h3><p>Deployment 主要的功用是負責管理 Pod，監控著每個 Pod 的運作狀態並且確保指定數量的 Pod 正常運行，不過先不要碰到太複雜的設定，只先建立一個 Pod，而這個 Pod 是基於剛剛 build 出來的 Docker image。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ kubectl run hello-node --image=hello-node:v1 --port=8080</div></pre></td></tr></table></figure>
+<p>檢查 deployment 是否正確建立。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ kubectl get deployments</div><div class="line"></div><div class="line">NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</div><div class="line">hello-node   1         1         1            1           23s</div></pre></td></tr></table></figure>
+<p>也可透過 <code>minikube dashborad</code> 來看是否有新增成功</p>
+<img src="http://imgur.com/6F6vBN6.png" class="[class names]" title="Dashborad 畫面">
+<h3 id="建立-Service"><a href="#建立-Service" class="headerlink" title="建立 Service"></a>建立 Service</h3><p>Service 負責定義如何去存取 Pods，簡單的來說就是能將外部流量導入 Pod 中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ kubectl expose deployment hello-node --type=LoadBalancer</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ kubectl get services</div><div class="line"></div><div class="line">NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE</div><div class="line">hello-node   10.0.0.171   &lt;pending&gt;     8080:32229/TCP   1m</div><div class="line">kubernetes   10.0.0.1     &lt;none&gt;        443/TCP          7d</div></pre></td></tr></table></figure>
+<p>到目前為止，所有設定已完成，只要再透過 minikube 跑下面指令，就能透過定義好的 service 來提供對外存取的入口點。</p>
+<p>最後使用以下指令，瀏覽器就會自動開啟新的分頁，顯示 Node.js Application 的內容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ minikube service hello-node</div></pre></td></tr></table></figure>
+<hr>
+<ol>
+<li><a href="http://www.evanlin.com/Learn-about-kubernetes/" target="_blank" rel="external">DevOps 學習 Kubernetes 筆記之一: 透過單機版的 Kubernetes (miniKube) 來玩 K8S</a></li>
+<li><a href="http://blog.kenyang.net/2016/04/07/getting-started-with-kubernetes" target="_blank" rel="external">Getting started with Kubernetes</a></li>
+<li><a href="http://k8s.info/cs.html?utm_campaign=CodeTengu&amp;utm_medium=web&amp;utm_source=CodeTengu_54" target="_blank" rel="external">Kubernetes Community Resources</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/24/sucking-less/" rel="prev" title="Sucking Less">
+                Sucking Less <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Vincent Lee" />
+          <p class="site-author-name" itemprop="name">Vincent Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">articles</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vincent10e" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置作業"><span class="nav-number">1.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-練習"><span class="nav-number">2.</span> <span class="nav-text">Project 練習</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立-Cluster"><span class="nav-number">2.1.</span> <span class="nav-text">建立 Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立簡單的-Node-js-Application"><span class="nav-number">2.2.</span> <span class="nav-text">建立簡單的 Node.js Application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立-Docker-Container-Image"><span class="nav-number">2.3.</span> <span class="nav-text">建立 Docker Container Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立-Deployment"><span class="nav-number">2.4.</span> <span class="nav-text">建立 Deployment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立-Service"><span class="nav-number">2.5.</span> <span class="nav-text">建立 Service</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vincent Lee</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Thème -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
