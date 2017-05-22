@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Vincent Lee</title>
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2017-05-21T09:56:36.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="https://vincent10e.github.io/"/>
+  <updated>2017-05-22T01:32:12.000Z</updated>
+  <id>https://vincent10e.github.io/</id>
   
   <author>
     <name>Vincent Lee</name>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Kubernetes (ㄧ）：Run Kubernetes Locally</title>
-    <link href="http://yoursite.com/2017/05/21/miniKube/"/>
-    <id>http://yoursite.com/2017/05/21/miniKube/</id>
+    <link href="https://vincent10e.github.io/2017/05/21/miniKube/"/>
+    <id>https://vincent10e.github.io/2017/05/21/miniKube/</id>
     <published>2017-05-21T08:48:15.000Z</published>
-    <updated>2017-05-21T09:56:36.000Z</updated>
+    <updated>2017-05-22T01:32:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>前一陣子想了解 kubernetes，所以就註冊了 Google Cloud Platform，練習了一下，雖然現在註冊就送 300 美，但在熟悉這些名詞與相關的關係之前，總是會頻繁的新增 cluster 與砍 cluster，某天在逛 <a href="https://github.com/ramitsurana/awesome-kubernetes" target="_blank" rel="external">awesome-kubernetes</a> 發現了 <a href="https://github.com/kubernetes/minikube" target="_blank" rel="external">minikube</a> 這個能在 local 端執行 kubernetes 的工具，簡直開心。在這邊就簡單的介紹一下 minikube 的使用方式。</p>
 <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><ol>
@@ -58,7 +58,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ kubectl run hello-node --image=hello-node:v1 --port=8080</div></pre></td></tr></table></figure>
 <p>檢查 deployment 是否正確建立。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ kubectl get deployments</div><div class="line"></div><div class="line">NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE</div><div class="line">hello-node   1         1         1            1           23s</div></pre></td></tr></table></figure>
-<p>也可透過 <code>minikube dashborad</code> 來看是否有新增成功</p>
+<p>也可透過 <code>minikube dashboard</code> 來看是否有新增成功</p>
 <img src="http://imgur.com/6F6vBN6.png" class="[class names]" title="Dashborad 畫面">
 <h3 id="建立-Service"><a href="#建立-Service" class="headerlink" title="建立 Service"></a>建立 Service</h3><p>Service 負責定義如何去存取 Pods，簡單的來說就是能將外部流量導入 Pod 中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ kubectl expose deployment hello-node --type=LoadBalancer</div></pre></td></tr></table></figure>
@@ -81,14 +81,14 @@
     </summary>
     
     
-      <category term="kubernetes" scheme="http://yoursite.com/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="https://vincent10e.github.io/tags/kubernetes/"/>
     
   </entry>
   
   <entry>
     <title>Sucking Less</title>
-    <link href="http://yoursite.com/2017/04/24/sucking-less/"/>
-    <id>http://yoursite.com/2017/04/24/sucking-less/</id>
+    <link href="https://vincent10e.github.io/2017/04/24/sucking-less/"/>
+    <id>https://vincent10e.github.io/2017/04/24/sucking-less/</id>
     <published>2017-04-24T15:39:05.000Z</published>
     <updated>2017-04-24T16:06:26.000Z</updated>
     
@@ -124,8 +124,8 @@
   
   <entry>
     <title>tmux 配合 tmuxifier</title>
-    <link href="http://yoursite.com/2017/04/17/tmux-in-your-day/"/>
-    <id>http://yoursite.com/2017/04/17/tmux-in-your-day/</id>
+    <link href="https://vincent10e.github.io/2017/04/17/tmux-in-your-day/"/>
+    <id>https://vincent10e.github.io/2017/04/17/tmux-in-your-day/</id>
     <published>2017-04-17T14:38:12.000Z</published>
     <updated>2017-04-17T14:45:43.000Z</updated>
     
@@ -168,8 +168,8 @@
   
   <entry>
     <title>你一天看了多少東西？</title>
-    <link href="http://yoursite.com/2017/04/15/information/"/>
-    <id>http://yoursite.com/2017/04/15/information/</id>
+    <link href="https://vincent10e.github.io/2017/04/15/information/"/>
+    <id>https://vincent10e.github.io/2017/04/15/information/</id>
     <published>2017-04-15T09:22:06.000Z</published>
     <updated>2017-04-15T09:50:19.000Z</updated>
     
@@ -194,8 +194,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2017/04/13/hello-world/"/>
-    <id>http://yoursite.com/2017/04/13/hello-world/</id>
+    <link href="https://vincent10e.github.io/2017/04/13/hello-world/"/>
+    <id>https://vincent10e.github.io/2017/04/13/hello-world/</id>
     <published>2017-04-13T13:01:12.000Z</published>
     <updated>2017-04-13T13:58:32.000Z</updated>
     
